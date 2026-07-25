@@ -49,7 +49,10 @@ class ApiFeatures {
       isActive,
     } = this.queryString;
 
-    if (category) this.filterConditions.category = category;
+    if (category) {
+      const ids = category.split(',').map((id) => id.trim()).filter(Boolean);
+      this.filterConditions.category = ids.length > 1 ? { $in: ids } : ids[0];
+    }
 
     if (minPrice || maxPrice) {
       this.filterConditions.price = {};

@@ -68,4 +68,21 @@ const searchLimiter = rateLimit({
   },
 });
 
-module.exports = { globalLimiter, authLimiter, otpLimiter, searchLimiter };
+/**
+ * Limiter for the AI shopping assistant endpoint. Each message triggers
+ * a real (billed) LLM API call, so this stays tighter than general
+ * browsing traffic regardless of the global limit.
+ */
+const aiChatLimiter = rateLimit({
+  windowMs: env.rateLimit.windowMs,
+  max: 40,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many chat messages, please slow down.',
+    error: { code: 'AI_CHAT_RATE_LIMITED', details: [] },
+  },
+});
+
+module.exports = { globalLimiter, authLimiter, otpLimiter, searchLimiter, aiChatLimiter };

@@ -70,6 +70,11 @@ const addWishlistItem = asyncHandler(async (req, res) => {
     await syncUserWishlistCount(req.user._id, wishlist.items.length);
   }
 
+  await wishlist.populate({
+    path: 'items.productId',
+    select: 'title slug price primaryImage images isActive ratingAverage',
+  });
+
   res
     .status(200)
     .json(
@@ -98,6 +103,11 @@ const removeWishlistItem = asyncHandler(async (req, res) => {
 
   await wishlist.save();
   await syncUserWishlistCount(req.user._id, wishlist.items.length);
+
+  await wishlist.populate({
+    path: 'items.productId',
+    select: 'title slug price primaryImage images isActive ratingAverage',
+  });
 
   res.status(200).json(new ApiResponse(200, { wishlist }, 'Product removed from wishlist'));
 });

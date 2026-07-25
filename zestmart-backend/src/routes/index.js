@@ -30,6 +30,7 @@ const sessionRoutes = require('./session.routes');
 const siteSettingsRoutes = require('./siteSettings.routes');
 const adminSiteSettingsRoutes = require('./admin.siteSettings.routes');
 const adminActivityLogRoutes = require('./admin.activityLog.routes');
+const aiChatRoutes = require('./aiChat.routes');
 
 const router = express.Router();
 
@@ -83,6 +84,7 @@ router.use('/sessions', sessionRoutes);
 router.use('/site-settings', siteSettingsRoutes);
 router.use('/admin/site-settings', adminSiteSettingsRoutes);
 router.use('/admin/activity-logs', adminActivityLogRoutes);
+router.use('/ai', aiChatRoutes);
 router.use('/admin', adminDashboardRoutes);
 
 module.exports = router;

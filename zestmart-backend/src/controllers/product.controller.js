@@ -117,6 +117,18 @@ const createProduct = asyncHandler(async (req, res) => {
 const getAllProducts = asyncHandler(async (req, res) => {
   const isAdmin = !!req.isAdminRoute;
 
+  // Products are only ever attached to leaf (sub-)categories. If the
+  // caller filtered by a top-level category (one that has children),
+  // expand the filter to include those children too — otherwise a
+  // parent-category link would always show 0 products.
+  if (req.query.category) {
+    const children = await Category.find({ parentCategory: req.query.category }).select('_id');
+    if (children.length > 0) {
+      const ids = [req.query.category, ...children.map((c) => c._id.toString())];
+      req.query = { ...req.query, category: ids.join(',') };
+    }
+  }
+
   const features = new ApiFeatures(
     Product.find().populate('category', 'name slug'),
     req.query

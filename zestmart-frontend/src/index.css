@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ivory text-ink font-body antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+  :focus-visible {
+    outline: 2px solid #0F4C4C;
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: #E8A33D;
+    color: #211D1A;
+  }
+
+  /* Custom scrollbar — thin, brand-colored */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FAF6EC;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #0F4C4C33;
+    border-radius: 999px;
+    border: 2px solid #FAF6EC;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0F4C4C66;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:pointer-events-none disabled:active:scale-100;
+  }
+  .btn-primary {
+    @apply btn bg-teal-600 text-ivory shadow-[0_4px_14px_-4px_rgba(15,76,76,0.5)] hover:bg-teal-700 hover:shadow-[0_6px_20px_-4px_rgba(15,76,76,0.6)] hover:-translate-y-0.5;
+  }
+  .btn-accent {
+    @apply btn bg-marigold-600 text-ink shadow-[0_4px_14px_-4px_rgba(232,163,61,0.6)] hover:bg-marigold-700 hover:shadow-[0_6px_20px_-4px_rgba(232,163,61,0.7)] hover:-translate-y-0.5;
+  }
+  .btn-outline {
+    @apply btn border border-teal-600/60 text-teal-700 hover:border-teal-600 hover:bg-teal-50;
+  }
+  .btn-ghost {
+    @apply btn text-ink hover:bg-sand;
+  }
+  .btn-danger {
+    @apply btn bg-maroon-600 text-ivory hover:bg-maroon-700;
+  }
+  .input {
+    @apply w-full rounded-lg border border-ink/15 bg-paper px-4 py-2.5 text-sm placeholder:text-ink/40 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 outline-none;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/60;
+  }
+  .card {
+    @apply rounded-xl2 bg-paper shadow-card transition-shadow duration-300;
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-marigold-700;
+  }
+
+  /* --- Signature elements: "Modern Indian Bazaar" motif --- */
+
+  /* Kantha-stitch inspired dotted divider — used between major sections */
+  .kantha-divider {
+    @apply relative h-px w-full overflow-hidden;
+    background-image: repeating-linear-gradient(
+      90deg,
+      #0F4C4C 0px,
+      #0F4C4C 6px,
+      transparent 6px,
+      transparent 14px
+    );
+    opacity: 0.35;
+  }
+  .kantha-divider::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      90deg,
+      #E8A33D 0px,
+      #E8A33D 3px,
+      transparent 3px,
+      transparent 14px
+    );
+    transform: translateY(3px);
+  }
+
+  /* Glass hover surface for product cards etc. */
+  .glass-panel {
+    @apply backdrop-blur-md bg-paper/70 border border-ivory/40 shadow-glass;
+  }
+
+  /* Subtle grain texture overlay, used on hero/dark sections */
+  .grain-overlay {
+    position: relative;
+  }
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: theme('backgroundImage.grain');
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  /* Shimmer skeleton loading */
+  .skeleton {
+    @apply bg-sand relative overflow-hidden;
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    background-size: 400px 100%;
+    animation: shimmer 1.6s infinite linear;
+  }
+
+  /* Animated underline for nav links */
+  .nav-underline {
+    @apply relative;
+  }
+  .nav-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 0%;
+    background: #E8A33D;
+    transition: width 0.25s cubic-bezier(0.16,1,0.3,1);
+  }
+  .nav-underline:hover::after {
+    width: 100%;
+  }
+
+  /* Stagger helper — pair with animate-fade-up, set inline style delay via data attr */
+  .stagger-item {
+    animation-fill-mode: both;
+  }
+}
