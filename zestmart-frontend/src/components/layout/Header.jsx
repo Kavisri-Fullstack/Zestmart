@@ -25,6 +25,15 @@ export default function Header() {
     categoryApi.list().then((res) => setCategories(res.data.data.categories || [])).catch(() => {});
   }, []);
 
+  // Lock background scroll while the mobile menu drawer is open, so touch
+  // scrolling affects the menu itself instead of the page behind it.
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
   const topLevelCategories = categories.filter((c) => !c.parentCategory);
   const childrenOf = (parentId) => categories.filter((c) => c.parentCategory === parentId);
 
@@ -196,11 +205,11 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-ink/10 px-4 py-3 md:hidden">
+        <div className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto bg-ivory px-4 py-3 md:hidden">
           <form onSubmit={submitSearch} className="mb-3">
             <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search…" className="input" />
           </form>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 pb-8">
             {topLevelCategories.map((c) => (
               <div key={c._id}>
                 <Link to={`/products?category=${c._id}`} onClick={() => setMenuOpen(false)} className="block py-1.5 text-sm font-semibold">
