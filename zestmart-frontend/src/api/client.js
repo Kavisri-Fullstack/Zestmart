@@ -76,7 +76,12 @@ api.interceptors.response.use(
   }
 );
 
-export const extractError = (error) =>
-  error?.response?.data?.message || error?.message || 'Something went wrong. Please try again.';
+export const extractError = (error) => {
+  const details = error?.response?.data?.error?.details;
+  if (Array.isArray(details) && details.length > 0) {
+    return details.map((d) => d.message).join(' ');
+  }
+  return error?.response?.data?.message || error?.message || 'Something went wrong. Please try again.';
+};
 
 export default api;
