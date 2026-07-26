@@ -152,6 +152,16 @@
     width: 100%;
   }
 
+  /* Hides the scrollbar on touch-drag carousels while keeping native
+     scroll (including touch/momentum) fully functional. */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Stagger helper — pair with animate-fade-up, set inline style delay via data attr */
   .stagger-item {
     animation-fill-mode: both;

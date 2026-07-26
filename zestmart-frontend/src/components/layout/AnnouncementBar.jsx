@@ -12,7 +12,7 @@ export default function AnnouncementBar() {
 
   return (
     <div className="overflow-hidden bg-teal-900 py-2">
-      <div className="flex w-max animate-marquee items-center gap-10 [animation-duration:32s]">
+      <div className="flex w-max animate-marquee items-center gap-6 [animation-duration:32s] sm:gap-10">
         {loop.map(({ icon: Icon, text }, i) => (
           <span key={i} className="flex items-center gap-2 whitespace-nowrap text-xs font-medium text-teal-50/85">
             <Icon size={13} className="text-marigold-400" />
