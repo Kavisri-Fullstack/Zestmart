@@ -207,11 +207,11 @@ export default function Header() {
       </header>
 
       {menuOpen && (
-        <div className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto bg-ivory px-4 py-3 md:hidden">
+        <div className="fixed inset-x-3 top-24 z-40 max-h-[70vh] overflow-y-auto rounded-xl2 border border-ink/10 bg-paper p-4 shadow-glass md:hidden">
           <form onSubmit={submitSearch} className="mb-3">
             <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search…" className="input" />
           </form>
-          <div className="flex flex-col gap-1 pb-8">
+          <div className="flex flex-col gap-1 pb-2">
             {topLevelCategories.map((c) => (
               <div key={c._id}>
                 <Link to={`/products?category=${c._id}`} onClick={() => setMenuOpen(false)} className="block py-1.5 text-sm font-semibold">
