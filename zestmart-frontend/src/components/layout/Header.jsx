@@ -75,7 +75,8 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink/10 bg-ivory/90 backdrop-blur-lg backdrop-saturate-150 relative">
+    <>
+      <header className="sticky top-0 z-40 border-b border-ink/10 bg-ivory/90 backdrop-blur-lg backdrop-saturate-150 relative">
       <div className="kantha-divider absolute inset-x-0 bottom-0" />
       <div className="container-page flex h-16 items-center gap-4">
         <button className="md:hidden" onClick={() => setMenuOpen((v) => !v)} aria-label="Menu">
@@ -203,6 +204,7 @@ export default function Header() {
           )}
         </div>
       </div>
+      </header>
 
       {menuOpen && (
         <div className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto bg-ivory px-4 py-3 md:hidden">
@@ -233,6 +235,6 @@ export default function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
