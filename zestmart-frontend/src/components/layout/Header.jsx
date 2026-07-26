@@ -200,7 +200,7 @@ export default function Header() {
               )}
             </div>
           ) : (
-            <Link to="/login" className="btn-primary hidden sm:inline-flex">Sign in</Link>
+            <Link to="/login" className="btn-primary px-3.5 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm">Sign in</Link>
           )}
         </div>
       </div>
