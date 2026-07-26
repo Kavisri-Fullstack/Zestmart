@@ -56,14 +56,18 @@ export default function ChatWidget() {
     <>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-teal-600 text-ivory shadow-glow transition-transform duration-200 hover:scale-110 active:scale-95"
+        className="fixed right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-teal-600 text-ivory shadow-glow transition-transform duration-200 hover:scale-110 active:scale-95"
+        style={{ bottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}
         aria-label="Open ZestMart assistant"
       >
         {open ? <X size={22} /> : <Sparkles size={22} />}
       </button>
 
       {open && (
-        <div className="fixed bottom-24 right-5 z-50 flex h-[32rem] w-[22rem] max-w-[calc(100vw-2.5rem)] animate-scale-in flex-col overflow-hidden rounded-xl2 border border-ink/10 bg-paper shadow-glass">
+        <div
+          className="fixed right-5 z-50 flex h-[32rem] w-[22rem] max-w-[calc(100vw-2.5rem)] animate-scale-in flex-col overflow-hidden rounded-xl2 border border-ink/10 bg-paper shadow-glass"
+          style={{ bottom: 'max(6rem, calc(env(safe-area-inset-bottom) + 5rem))' }}
+        >
           <div className="flex items-center gap-2 border-b border-ink/10 bg-teal-700 px-4 py-3 text-ivory">
             <Sparkles size={16} className="text-marigold-400" />
             <div>
