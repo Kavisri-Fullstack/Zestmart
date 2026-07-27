@@ -17,11 +17,14 @@ export default function ProductCarousel({ products, reverse = false }) {
     const step = () => {
       if (!interactingRef.current && el.scrollWidth > 0) {
         const half = el.scrollWidth / 2;
-        el.scrollLeft += SPEED * direction;
-        // Wrap around seamlessly — recalculated every frame so it stays
-        // correct even if images load in late and change the width.
-        if (el.scrollLeft >= half) el.scrollLeft -= half;
-        if (el.scrollLeft < 0) el.scrollLeft += half;
+        // Compute the wrapped value in a plain variable first — assigning
+        // a negative value directly to el.scrollLeft gets silently clamped
+        // to 0 by the browser before our own wrap-around check can run,
+        // which is what made reverse-direction rows get stuck at 0.
+        let next = el.scrollLeft + SPEED * direction;
+        if (next >= half) next -= half;
+        if (next < 0) next += half;
+        el.scrollLeft = next;
       }
       rafRef.current = requestAnimationFrame(step);
     };
