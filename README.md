@@ -1,49 +1,114 @@
-# 🎵 SoundWave — Full-Stack Music Streaming App
+# ZestMart
 
-A Spotify-inspired music streaming platform built end-to-end with the MERN stack, featuring real licensed audio, dynamic playlists, and a polished, fully responsive dark UI.
+A full-stack e-commerce platform for premium Indian lifestyle products — built end-to-end with a customer storefront, an admin dashboard, and an AI shopping assistant.
 
-**🔗 Live App:** [soundwave-drab-alpha.vercel.app](https://soundwave-drab-alpha.vercel.app)
+🔗 **Live demo:** [zestmart-two.vercel.app](https://zestmart-two.vercel.app)
 
 ---
 
-## ✨ Features
+## Features
 
-- 🔐 **Authentication** — JWT-based signup/login, auto-generated avatar per user
-- 🎧 **Real Music Catalogue** — hundreds of tracks pulled live from the [Jamendo](https://www.jamendo.com) API (Creative Commons licensed, real artists, real audio)
-- 🖼️ **Dynamic Artwork** — per-song and per-artist images sourced from the Pexels API
-- ❤️ **Favorites & Recently Played** — persisted per user
-- 🎼 **Playlists** — create, edit, delete, and add songs directly from any song card
-- 👥 **Follow Artists** — build a personalized artist feed
-- 🔍 **Search & Mood Discovery** — search by song/artist/album, or browse by mood (Happy, Calm, Workout, etc.)
-- 🤖 **AI Assistant** — mood-based song recommendations
-- 📱 **Fully Responsive** — custom mobile layout for the player, sidebar, and navigation
-- 🎨 **Custom Dark UI** — red-accented theme, custom scrollbars, smooth animations
+### Customer store
+- Product catalog — 400+ products across 26 categories and sub-categories
+- Search, filters, sorting, pagination
+- Cart, wishlist, product reviews & ratings
+- Checkout with **Razorpay** (online payment) and Cash on Delivery
+- Order placement, tracking, and invoice download
+- Auth: register/login, JWT access + httpOnly refresh tokens, OTP-based password reset
+- Notifications, recently viewed, personalized recommendations
+- **AI Shopping Assistant ("Zesty")** — powered by Google Gemini, searches the live product catalog via function-calling to recommend real products (never hallucinated ones)
 
-## 🛠️ Tech Stack
+### Admin dashboard
+- Sales analytics and dashboard overview
+- Full CRUD: products, categories, orders, coupons, banners, users
+- Order status management, site settings, activity logs
 
-**Frontend:** React (Vite), Tailwind CSS, React Router, Axios
-**Backend:** Node.js, Express, MongoDB (Mongoose), JWT Auth
-**External APIs:** Jamendo (music), Pexels (images), DiceBear (avatars)
-**Deployment:** Vercel (frontend) + Render (backend) + MongoDB Atlas (database)
+---
 
-## 🚀 Getting Started Locally
+## Tech stack
+
+| Layer | Tech |
+|---|---|
+| Frontend | React, Vite, Tailwind CSS, React Router |
+| Backend | Node.js, Express, MongoDB (Mongoose) |
+| Auth | JWT (access + httpOnly refresh cookie) |
+| Payments | Razorpay |
+| AI | Google Gemini API (function calling) |
+| Image search (seed data) | Pexels API |
+| Deployment | Vercel (frontend) + Render (backend) + MongoDB Atlas |
+
+---
+
+## Project structure
+
+```
+zestmart/
+├── zestmart-backend/     # Express API (REST, /api/v1)
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── validators/
+│   │   └── seed/          # Catalog seed script
+│   └── package.json
+└── zestmart-frontend/     # React + Vite SPA
+    ├── src/
+    │   ├── api/            # API client modules
+    │   ├── components/
+    │   ├── context/        # Auth / Cart / Wishlist state
+    │   ├── pages/
+    │   └── routes/
+    └── package.json
+```
+
+---
+
+## Getting started locally
 
 ### Backend
 ```bash
-cd backend
+cd zestmart-backend
 npm install
-# Add your own MongoDB URI, JWT secret, and API keys to a .env file
-npm run seed   # populates the database with real Jamendo tracks
+# create a .env file — see Environment variables below
+npm run seed   # populates categories, products, and an admin account
 npm run dev
 ```
 
 ### Frontend
 ```bash
-cd frontend
+cd zestmart-frontend
 npm install
+# create a .env with:
+# VITE_API_BASE_URL=http://localhost:5000/api/v1
 npm run dev
 ```
 
-## 📄 License
+---
 
-This project is for portfolio/educational purposes. Music is streamed via the Jamendo API under Creative Commons licensing.
+## Environment variables (backend)
+
+| Variable | Description |
+|---|---|
+| `MONGODB_URI` | MongoDB connection string |
+| `JWT_SECRET` / related | JWT signing secrets |
+| `CLIENT_URL` | Frontend origin, for CORS |
+| `RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET` | Payment gateway |
+| `PEXELS_API_KEY` | Used only by the seed script, for catalog images |
+| `GEMINI_API_KEY` | Powers the AI shopping assistant |
+| `RATE_LIMIT_MAX` | API rate limit window |
+
+---
+
+## Default admin login (after seeding)
+
+```
+email: admin@zestmart.com
+password: Admin@123
+```
+
+---
+
+## License
+
+This project was built for learning and portfolio purposes.
